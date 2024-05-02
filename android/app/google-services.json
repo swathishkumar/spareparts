@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "440915540004",
+    "project_id": "sparespace-d887b",
+    "storage_bucket": "sparespace-d887b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440915540004:android:050e8f3e1f982bd447c0b1",
+        "android_client_info": {
+          "package_name": "com.example.spareparts"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-B3dmFUC9oNmyTEB4bfFmkolSCIRlpkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
