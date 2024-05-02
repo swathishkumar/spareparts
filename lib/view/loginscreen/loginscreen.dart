@@ -43,6 +43,7 @@ class _LoginscreenState extends State<Loginscreen> {
                     height: 10,
                   ),
                   TextFormField(
+                    obscureText: true,
                     controller: password,
                     decoration: InputDecoration(border: OutlineInputBorder()),
                     style: TextStyle(color: Colors.white),

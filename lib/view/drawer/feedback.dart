@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:spareparts/view/homescreen/homescreen.dart';
 
@@ -10,19 +11,54 @@ class FeedbackScreen extends StatefulWidget {
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
   TextEditingController feedback = TextEditingController();
+  CollectionReference collectionReference =
+      FirebaseFirestore.instance.collection("feedback");
+
+  void sendFeedback() async {
+    String feedbackText = feedback.text;
+
+    // Check if feedback is not empty
+    if (feedbackText.isNotEmpty) {
+      // Add feedback to Firestore
+      await collectionReference.add({
+        'feedback': feedbackText,
+        'timestamp': Timestamp.now(), // You can also add a timestamp if needed
+      });
+
+      // Clear the feedback text field after sending
+      feedback.clear();
+
+      // Show a snackbar or any other feedback to the user
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Feedback sent successfully!'),
+        ),
+      );
+    } else {
+      // Show error message if feedback is empty
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please enter your feedback before sending.'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Homescreen(),
-                  ));
-            },
-            icon: Icon(Icons.arrow_back)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Homescreen(),
+              ),
+            );
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -41,13 +77,15 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               TextFormField(
                 controller: feedback,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(), hintText: ("feedback")),
+                  border: OutlineInputBorder(),
+                  hintText: ("feedback"),
+                ),
               ),
               SizedBox(
                 height: 10,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: sendFeedback, // Call the function to send feedback
                 child: Text("Send"),
               )
             ],
